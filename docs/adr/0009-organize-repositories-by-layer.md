@@ -20,7 +20,7 @@ Kod ve içerik katmanlara göre ayrı repolarda tutulur:
 | `module-*` | İş modülleri (ör. `module-obs`, `module-lms`); bkz. [ADR-0010](0010-develop-modules-as-separate-packages.md). |
 | `platform-web` | React/TypeScript web arayüzü (öğrenci, akademisyen, idari kullanıcı, yönetici). |
 | `mobile` | React Native mobil self-servis uygulaması. |
-| `adapters` | `libre-ports` arayüz paketi ve dış sistem adapterleri (Keycloak/OIDC, Jitsi, S3/MinIO, SMTP; ileride YÖKSİS, e-Devlet, banka). |
+| `adapters` | `ports` arayüz paketi ve dış sistem adapterleri (Keycloak/OIDC, Jitsi, BigBlueButton, S3/MinIO, SMTP; ileride YÖKSİS, e-Devlet, banka). |
 | `deploy` | Docker Compose geliştirme ortamı, üretime yakın kurulum, Helm/Ansible, yedekleme ve gözlemlenebilirlik yığını. |
 | `design-system` | Tasarım ilkeleri, Penpot kaynakları, erişilebilir React bileşen kütüphanesi ve Storybook. |
 | `website` | Proje tanıtım sitesi ve yayınlanmış dokümantasyon. |
