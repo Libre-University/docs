@@ -1,3 +1,5 @@
+# Modüller
+
 > **Proje ilkesi:** LibreUniversity; kapalı kutu, kaynak kodu teslim edilmeyen, üniversiteyi tek firmaya veya lisans sunucusuna bağımlı bırakan sistemlerden kaçınmak için özgür yazılım, açık standartlar, self-hosted kurulum ve tedarikçi bağımsızlığı ilkeleriyle geliştirilecektir. Zorunlu dış entegrasyonlar çekirdek mimariye gömülmeyecek, adapter katmanında izole edilecektir.
 
 ### 1. Çok Kiracılı Web ve İçerik Yönetim Sistemi (Multi-Tenant CMS)
@@ -55,7 +57,7 @@ _Öğrencinin üniversiteye adım atmasından mezuniyetine kadar olan resmi sür
 
 ### 4. Akademik Araştırma ve BAP (Araştırma Bilgi Sistemi)
 
-- **AVESİS (Akademik Veri YS):** Akademisyenlerin makale, patent, bildiri, kitap, atıf verilerinin tutulduğu, YÖKSİS ile entegre performans ve teşvik hesaplama modülü.
+- **Akademik Veri Yönetim Sistemi:** Akademisyenlerin makale, patent, bildiri, kitap, atıf verilerinin tutulduğu, YÖKSİS ile entegre performans ve teşvik hesaplama modülü.
     
 - **BAP (Bilimsel Araştırma Projeleri):** Kurum içi araştırma fonu başvuru, hakem değerlendirme, bütçe serbest bırakma ve ara rapor onaylama iş akışları.
     
@@ -110,7 +112,7 @@ _Öğrencinin üniversiteye adım atmasından mezuniyetine kadar olan resmi sür
 
 ### 9. Arka Plan Güvenlik ve Mimari Modülleri (System Core)
 
-- **SSO (Single Sign-On):** Öğrencinin "Öğrenci Numarası ve Şifre" ile giriş yapıp, bir daha şifre girmeden LMS, OBS, Web siteleri, Yemekhane ve Eduroam Wi-Fi sistemine otomatik bağlanmasını sağlayan merkezi kimlik yönetimi (Active Directory/Keycloak).
+- **SSO (Single Sign-On):** Öğrencinin "Öğrenci Numarası ve Şifre" ile giriş yapıp, bir daha şifre girmeden LMS, OBS, Web siteleri, Yemekhane ve Eduroam Wi-Fi sistemine otomatik bağlanmasını sağlayan merkezi kimlik yönetimi (Keycloak gibi özgür bir kimlik sağlayıcı; mevcut LDAP/Active Directory dizinleri yalnızca adapter üzerinden kaynak olarak bağlanabilir).
     
 - **Veri Ambarı ve İş Zekası (BI):** Yönetim (Rektörlük) için raporlama ekranları; Hangi fakülte ne kadar bütçe yaktı? Hangi derste kalma oranı yüksek? Üniversite geneli doluluk oranları nedir?
     

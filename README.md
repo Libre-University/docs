@@ -25,6 +25,10 @@ LibreUniversity bu döngüyü kırmak ister:
 - Toplulukla geliştirilen şeffaf karar süreçleri.
 - KVKK, güvenlik, erişilebilirlik ve kamu yararı odağı.
 
+## Repolar
+
+Proje [`libre-university`](https://github.com/libre-university) organizasyonunda katmanlara göre ayrılmış repolarda geliştirilir. Liste ve faz sorumlulukları için [Yol Haritası](ROADMAP.md) belgesine bakın.
+
 ## Mevcut Dokümanlar
 
 - [Mimari İlkeler](ARCHITECTURAL_PRINCIPLES.md)

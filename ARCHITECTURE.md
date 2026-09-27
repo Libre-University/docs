@@ -77,12 +77,17 @@ Yetki kontrolleri yalnızca arayüzde değil, sunucu tarafında uygulanmalıdır
 - Yetki değişikliği.
 - Sağlık/disiplin/hukuk verisine erişim.
 
-## Açık Sorular
+## Karar Durumu
 
-- İlk uygulama dili ve framework seçimi ne olacak?
-- Modüler monolith ile mi başlanacak, yoksa belirli çekirdek servisler ayrılacak mı?
-- Ana veritabanı PostgreSQL mi olacak?
-- Kimlik sistemi doğrudan Keycloak gibi hazır özgür yazılım üzerinden mi kurulacak?
-- İlk UI web odaklı mı, mobil öncelikli mi olacak?
+Geliştirme öncesi açık sorular aşağıdaki ADR'lerle yanıtlanmıştır:
 
-Bu sorular geliştirme başlamadan önce topluluk tartışmasıyla netleştirilmelidir.
+| Soru | Karar | ADR |
+| --- | --- | --- |
+| Modüler monolith mi, servisler mi? | MVP modüler monolith | [ADR-0004](docs/adr/0004-start-with-modular-monolith-for-mvp.md) |
+| Ana veritabanı? | PostgreSQL | [ADR-0005](docs/adr/0005-use-postgresql-as-primary-database.md) |
+| Kimlik sistemi? | OIDC/SAML, Keycloak birincil aday, adapter üzerinden | [ADR-0006](docs/adr/0006-use-open-identity-provider-adapter.md) |
+| Uygulama dili ve framework? | Python/Django + React/TypeScript | [ADR-0008](docs/adr/0008-use-python-django-and-react.md) |
+| Repo yapısı? | Katmanlara göre ayrılmış repolar | [ADR-0009](docs/adr/0009-organize-repositories-by-layer.md) |
+| İlk UI web mi, mobil mi? | Önce responsive web; mobil uygulama Faz 3'te | [ADR-0008](docs/adr/0008-use-python-django-and-react.md) |
+
+Yeni sorular ortaya çıktıkça yeni ADR önerisiyle tartışılmalıdır.

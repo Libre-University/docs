@@ -241,8 +241,7 @@ sequenceDiagram
 
 ## Açık Noktalar
 
-- Kimlik sistemi doğrudan Keycloak ile mi başlayacak, yoksa daha ince bir kimlik çekirdeği mi yazılacak?
-- MVP modüler monolith olarak mı başlayacak, yoksa SSO/OBS/LMS ayrı servisler mi olacak?
-- Mobil uygulama ilk aşamada responsive web olarak mı ele alınacak?
-- Ders kayıt kuyruğu MVP'de gerçek kuyruk sistemiyle mi, yoksa basitleştirilmiş işlem modeliyle mi gösterilecek?
+Kimlik sağlayıcı, monolith/servis ayrımı ve web/mobil önceliği [ARCHITECTURE.md](ARCHITECTURE.md#karar-durumu) altındaki ADR'lerle netleşmiştir. Hâlâ açık olanlar:
+
+- Ders kayıt kuyruğu MVP'de gerçek kuyruk sistemiyle mi (Celery/Redis), yoksa veritabanı kilitli basitleştirilmiş işlem modeliyle mi gösterilecek?
 - Jitsi kayıt/VOD pipeline ilk MVP'de tam çalışacak mı, yoksa adapter sınırıyla mı bırakılacak?

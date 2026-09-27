@@ -20,11 +20,13 @@ Bu klasör LibreUniversity için alınan veya önerilen önemli mimari kararlar�
 | [0005](0005-use-postgresql-as-primary-database.md) | Birincil veritabanı PostgreSQL olsun | Önerildi |
 | [0006](0006-use-open-identity-provider-adapter.md) | Kimlik için açık SSO sağlayıcı ve adapter yaklaşımı kullanılsın | Önerildi |
 | [0007](0007-isolate-external-systems-with-adapters.md) | Dış sistemler adapter katmanında izole edilsin | Kabul edildi |
+| [0008](0008-use-python-django-and-react.md) | Python/Django ve React/TypeScript kullanılsın | Önerildi |
+| [0009](0009-organize-repositories-by-layer.md) | Repolar katmanlara göre ayrılsın | Önerildi |
 
 ## Yeni ADR Yazarken
 
 Yeni dosya adı şu formatı izlemelidir:
 
-`0008-short-decision-title.md`
+`0010-short-decision-title.md`
 
 Her ADR; durum, bağlam, karar, sonuçlar, alternatifler ve ilgili dokümanlar bölümlerini içermelidir.

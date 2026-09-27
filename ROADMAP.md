@@ -1,6 +1,34 @@
 # Yol Haritası
 
-Bu yol haritası, LibreUniversity'nin fikir aşamasından çalışan özgür yazılım ekosistemine dönüşmesi için önerilen fazları tanımlar.
+Bu yol haritası, LibreUniversity'nin fikir aşamasından çalışan özgür yazılım ekosistemine dönüşmesi için önerilen fazları tanımlar. Proje `libre-university` GitHub organizasyonu altında katmanlara göre ayrılmış repolarda geliştirilir ([ADR-0009](docs/adr/0009-organize-repositories-by-layer.md)). Her reponun kendi `ROADMAP.md` dosyası bu fazlarla hizalıdır.
+
+## Repolar ve Faz Sorumlulukları
+
+| Repo | Faz 0 | Faz 1 | Faz 2 | Faz 3 | Faz 4+ |
+| --- | --- | --- | --- | --- | --- |
+| `.github` | Profil, şablonlar | Etiket/süreç iyileştirme | | | |
+| `docs` | ADR, gereksinimler | API ve modül sözleşmeleri | Akademik süreç belgeleri | Kullanıcı kılavuzları | Kurumsal modül analizleri |
+| `platform-api` | İskelet, CI | Kimlik, yetki, audit, temel veri | OBS akışları | LMS, bildirim | ERP/finans modülleri |
+| `platform-web` | İskelet, CI | Giriş, yönetim paneli | OBS ekranları | LMS ekranları, self-servis | Kurumsal ekranlar |
+| `mobile` | — | — | Prototip | Mobil self-servis 1.0 | Dijital kampüs kartı |
+| `adapters` | `libre-ports` taslağı | OIDC, S3, SMTP | | Jitsi, push | Banka, e-Devlet, YÖKSİS |
+| `deploy` | Compose geliştirme ortamı | Test/üretime yakın kurulum | Yedekleme | Jitsi yığını | Helm, HA |
+| `design-system` | İlkeler, tokenlar | Temel bileşenler | Form/tablo bileşenleri | Mobil uyarlama | |
+| `website` | Tanıtım sitesi | Doküman yayını | Demo ortamı | | |
+
+## Faz 0 Kapanış: Geliştirici Davetinden Önce
+
+Aşağıdakiler tamamlanmadan dış katkıcı çağrısı yapılmamalıdır:
+
+- [ ] Lisans kararının kesinleştirilmesi ([ADR-0002](docs/adr/0002-prefer-agpl-3-or-later-license.md)) ve tüm repolara `LICENSE` eklenmesi.
+- [ ] ADR-0004, 0005, 0006, 0008, 0009'un kabul edilmesi.
+- [ ] Organizasyon repolarının açılması ve her repoda `README.md` + `ROADMAP.md`.
+- [ ] `.github` reposunda varsayılan katkı rehberi, davranış kuralları, güvenlik politikası ve şablonlar.
+- [ ] Ortak etiket seti (`good first issue`, `help wanted`, `modül:*`, `tür:*`, `kvkk`, `güvenlik`).
+- [ ] `platform-api` ve `platform-web` iskeletlerinin CI ile yeşil olması.
+- [ ] `deploy` ile tek komutla çalışan geliştirme ortamı.
+- [ ] Her repoda en az 5 adet `good first issue`.
+- [ ] İletişim kanalının (Matrix/Discourse gibi özgür bir platform) açılması.
 
 ## Faz 0: Topluluk ve Analiz
 
