@@ -10,10 +10,10 @@ Bu yol haritası, LibreUniversity'nin fikir aşamasından çalışan özgür yaz
 | `docs` | ADR, gereksinimler | API ve modül sözleşmeleri | Akademik süreç belgeleri | Kullanıcı kılavuzları | Kurumsal modül analizleri |
 | `platform-api` | Çekirdek iskelet, modül yükleme, modül şablonu, CI | Kimlik, yetki, audit, bildirim, dosya, temel veri | Çekirdek arayüz iyileştirmeleri | Push bildirim, mobil API | KVKK süreçleri |
 | `module-obs` | Modül iskeleti, iş kuralı kabul kriterleri | Öğrenci ve müfredat modelleri | Ders açma, kayıt, danışman onayı, not | Transkript/belge | Staj, mezuniyet |
-| `module-lms` | Modül iskeleti, iş kuralı kabul kriterleri | — | Ders sayfası ve materyal temeli | Duyuru, ödev, Jitsi canlı ders | Online sınav, VOD |
+| `module-lms` | Modül iskeleti, iş kuralı kabul kriterleri | — | Ders sayfası ve materyal temeli | Duyuru, ödev, Jitsi / BigBlueButton canlı ders | Online sınav, VOD |
 | `platform-web` | İskelet, CI | Giriş, yönetim paneli | OBS ekranları | LMS ekranları, self-servis | Kurumsal ekranlar |
 | `mobile` | — | — | Prototip | Mobil self-servis 1.0 | Dijital kampüs kartı |
-| `adapters` | `libre-ports` taslağı | OIDC, S3, SMTP | | Jitsi, push | Banka, e-Devlet, YÖKSİS |
+| `adapters` | `ports` taslağı | OIDC, S3, SMTP | | Jitsi, BigBlueButton, push | Banka, e-Devlet, YÖKSİS |
 | `deploy` | Compose geliştirme ortamı | Test/üretime yakın kurulum | Yedekleme | Jitsi yığını | Helm, HA |
 | `design-system` | İlkeler, tokenlar | Temel bileşenler | Form/tablo bileşenleri | Mobil uyarlama | |
 | `website` | Tanıtım sitesi | Doküman yayını | Demo ortamı | | |
