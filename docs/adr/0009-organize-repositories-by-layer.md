@@ -16,7 +16,7 @@ Kod ve içerik katmanlara göre ayrı repolarda tutulur:
 | --- | --- |
 | `.github` | Organizasyon profili, varsayılan katkı rehberi, davranış kuralları, güvenlik politikası, issue/PR şablonları. |
 | `docs` | Vizyon, gereksinimler, mimari, veri modeli, ADR'ler ve ana yol haritası. Mimari kararların tek kaynağı. |
-| `platform-api` | Django çekirdek ve modül barındırıcı: kimlik/yetki, akademik çekirdek, audit, bildirim, dosya. |
+| `platform-api` | Go çekirdek ve dağıtım uygulaması: kimlik/yetki, akademik çekirdek, audit, bildirim, dosya. |
 | `module-*` | İş modülleri (ör. `module-obs`, `module-lms`); bkz. [ADR-0010](0010-develop-modules-as-separate-packages.md). |
 | `platform-web` | React/TypeScript web arayüzü (öğrenci, akademisyen, idari kullanıcı, yönetici). |
 | `mobile` | React Native mobil self-servis uygulaması. |
@@ -28,7 +28,7 @@ Kod ve içerik katmanlara göre ayrı repolarda tutulur:
 Kurallar:
 
 - Backend tek uygulama olarak dağıtılır ([ADR-0004](0004-start-with-modular-monolith-for-mvp.md)); iş modülleri ayrı repolarda paket olarak geliştirilir ([ADR-0010](0010-develop-modules-as-separate-packages.md)).
-- Repolar arası sözleşmeler versiyonlanır: REST API için OpenAPI dosyası (`platform-api`), adapterler için `libre-ports` paketi (`adapters`), UI için `@libre-university/ui` paketi (`design-system`).
+- Repolar arası sözleşmeler versiyonlanır: REST API için OpenAPI dosyası (`platform-api`), adapterler için `ports` paketi (`adapters`), UI için `@libre-university/ui` paketi (`design-system`).
 - Her repo kendi `README.md` ve `ROADMAP.md` dosyasını tutar; fazlar ve kilometre taşları `docs/ROADMAP.md` ile hizalıdır.
 - Mimariyi etkileyen değişiklikler önce `docs` reposunda ADR olarak önerilir.
 

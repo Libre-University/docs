@@ -47,7 +47,7 @@ LibreUniversity, üniversitelerin kapalı kutu sistemlere, belirsiz tedarikçi p
 - **Arama:** OpenSearch, Meilisearch.
 - **Gözlemlenebilirlik:** Prometheus, Grafana, Loki, OpenTelemetry.
 - **SIEM/Güvenlik:** Wazuh, Zeek, Suricata.
-- **Veritabanı:** PostgreSQL, MariaDB, Redis/Valkey.
+- **Veritabanı:** PostgreSQL, MariaDB, Valkey (Redis'in BSD lisanslı devamı).
 - **Mesaj kuyruğu:** RabbitMQ, NATS, Apache Kafka uyumlu açık kaynak seçenekler.
 - **Baskı altyapısı:** CUPS ve açık protokol tabanlı yazıcı entegrasyonları.
 

@@ -30,7 +30,7 @@ MODULES.md'deki diğer modüller için repolar fazı yaklaştıkça açılır ([
 Aşağıdakiler tamamlanmadan dış katkıcı çağrısı yapılmamalıdır:
 
 - [x] Lisans kararının kesinleştirilmesi ([ADR-0002](docs/adr/0002-prefer-agpl-3-or-later-license.md)) ve tüm repolara `LICENSE` eklenmesi.
-- [ ] ADR-0004, 0005, 0006, 0008, 0009, 0010'un kabul edilmesi.
+- [ ] ADR-0004, 0005, 0006, 0008, 0009, 0010, 0011'in kabul edilmesi.
 - [x] Organizasyon repolarının açılması ve her repoda `README.md` + `ROADMAP.md`.
 - [x] `.github` reposunda varsayılan katkı rehberi, davranış kuralları, güvenlik politikası ve şablonlar.
 - [x] Ortak etiket seti ([`org-labels.yml`](org-labels.yml): `good first issue`, `help wanted`, `type:*`, `area:*`, `module:*`, `phase:*`, `priority:*`, `kvkk`).
