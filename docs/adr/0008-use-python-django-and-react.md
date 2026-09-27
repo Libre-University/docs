@@ -2,7 +2,7 @@
 
 ## Durum
 
-Önerildi
+Kısmen değiştirildi. Backend bölümünün (Python/Django) yerini [ADR-0011](0011-use-go-for-backend.md) almıştır; web (React/TypeScript) ve mobil (React Native) kararları geçerlidir.
 
 ## Bağlam
 

@@ -31,7 +31,7 @@ Bu repo projenin vizyon, gereksinim, mimari, veri modeli, ADR ve ana yol haritas
 
 | Faz | Bu repoda yapılacaklar |
 | --- | --- |
-| Faz 0 | Lisans kararı, ADR-0004/0005/0006/0008/0009/0010'un kabulü, katkıcı karşılama belgeleri, sözlük |
+| Faz 0 | Lisans kararı, ADR-0004/0005/0006/0008/0009/0010/0011'in kabulü, katkıcı karşılama belgeleri, sözlük |
 | Faz 1 | API sözleşme ilkeleri, yetki modeli ve audit olay kataloğu belgeleri |
 | Faz 2 | Ders kayıt, danışman onayı ve not süreçlerinin ayrıntılı analizleri |
 | Faz 3 | LMS ve mobil kullanıcı kılavuzları |

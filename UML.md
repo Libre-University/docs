@@ -243,5 +243,5 @@ sequenceDiagram
 
 Kimlik sağlayıcı, monolith/servis ayrımı ve web/mobil önceliği [ARCHITECTURE.md](ARCHITECTURE.md#karar-durumu) altındaki ADR'lerle netleşmiştir. Hâlâ açık olanlar:
 
-- Ders kayıt kuyruğu MVP'de gerçek kuyruk sistemiyle mi (Celery/Redis), yoksa veritabanı kilitli basitleştirilmiş işlem modeliyle mi gösterilecek?
+- Ders kayıt kuyruğu MVP'de River kuyruğu üzerinden mi, yoksa veritabanı kilitli basitleştirilmiş işlem modeliyle mi gösterilecek? ([ADR-0011](docs/adr/0011-use-go-for-backend.md))
 - Jitsi kayıt/VOD pipeline ilk MVP'de tam çalışacak mı, yoksa adapter sınırıyla mı bırakılacak?
