@@ -31,9 +31,9 @@ Aşağıdakiler tamamlanmadan dış katkıcı çağrısı yapılmamalıdır:
 
 - [x] Lisans kararının kesinleştirilmesi ([ADR-0002](docs/adr/0002-prefer-agpl-3-or-later-license.md)) ve tüm repolara `LICENSE` eklenmesi.
 - [ ] ADR-0004, 0005, 0006, 0008, 0009, 0010'un kabul edilmesi.
-- [ ] Organizasyon repolarının açılması ve her repoda `README.md` + `ROADMAP.md`.
-- [ ] `.github` reposunda varsayılan katkı rehberi, davranış kuralları, güvenlik politikası ve şablonlar.
-- [ ] Ortak etiket seti ([`org-labels.yml`](org-labels.yml): `good first issue`, `help wanted`, `type:*`, `area:*`, `module:*`, `phase:*`, `priority:*`, `kvkk`).
+- [x] Organizasyon repolarının açılması ve her repoda `README.md` + `ROADMAP.md`.
+- [x] `.github` reposunda varsayılan katkı rehberi, davranış kuralları, güvenlik politikası ve şablonlar.
+- [x] Ortak etiket seti ([`org-labels.yml`](org-labels.yml): `good first issue`, `help wanted`, `type:*`, `area:*`, `module:*`, `phase:*`, `priority:*`, `kvkk`).
 - [ ] `platform-api` ve `platform-web` iskeletlerinin CI ile yeşil olması.
 - [ ] `deploy` ile tek komutla çalışan geliştirme ortamı.
 - [ ] Her repoda en az 5 adet `good first issue`.
