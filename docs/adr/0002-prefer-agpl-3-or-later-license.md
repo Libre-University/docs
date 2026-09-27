@@ -2,7 +2,7 @@
 
 ## Durum
 
-Önerildi
+Kabul edildi. Yazılım repoları AGPL-3.0-or-later, belge repoları (`docs`, `.github`) CC BY-SA 4.0 ile lisanslanır.
 
 ## Bağlam
 

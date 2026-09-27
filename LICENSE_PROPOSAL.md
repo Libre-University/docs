@@ -2,7 +2,7 @@
 
 LibreUniversity için önerilen ana lisans **AGPL-3.0-or-later** lisansıdır.
 
-Bu belge nihai lisans metni değil, topluluk tartışması için lisans önerisidir. Nihai lisans kararı yönetişim süreciyle kesinleştirilmelidir.
+**Karar:** Öneri kabul edilmiştir ([ADR-0002](docs/adr/0002-prefer-agpl-3-or-later-license.md)). Yazılım repoları AGPL-3.0-or-later, belge repoları CC BY-SA 4.0 ile lisanslanır. Bu belge kararın gerekçesini açıklar.
 
 ## Neden AGPL?
 

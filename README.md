@@ -78,4 +78,4 @@ Proje henüz fikir ve analiz aşamasındadır. İlk hedef; güçlü bir topluluk
 
 ## Lisans
 
-Lisans kararı topluluk tarafından kesinleştirilecektir. Varsayılan öneri, ağ üzerinden hizmet olarak sunulan türevlerin de özgür kalmasını sağlamak için **AGPL-3.0-or-later** lisansıdır.
+Bu repodaki belgeler [Creative Commons Atıf-AynıLisanslaPaylaş 4.0 Uluslararası](LICENSE) (CC BY-SA 4.0) ile lisanslanmıştır. LibreUniversity yazılım repoları [AGPL-3.0-or-later](https://www.gnu.org/licenses/agpl-3.0.html) ile lisanslanmıştır ([ADR-0002](docs/adr/0002-prefer-agpl-3-or-later-license.md)).
