@@ -88,6 +88,7 @@ Geliştirme öncesi açık sorular aşağıdaki ADR'lerle yanıtlanmıştır:
 | Kimlik sistemi? | OIDC/SAML, Keycloak birincil aday, adapter üzerinden | [ADR-0006](docs/adr/0006-use-open-identity-provider-adapter.md) |
 | Uygulama dili ve framework? | Python/Django + React/TypeScript | [ADR-0008](docs/adr/0008-use-python-django-and-react.md) |
 | Repo yapısı? | Katmanlara göre ayrılmış repolar | [ADR-0009](docs/adr/0009-organize-repositories-by-layer.md) |
+| Modüller nerede geliştirilecek? | Her modül ayrı `module-*` reposunda paket; tek uygulama olarak dağıtım | [ADR-0010](docs/adr/0010-develop-modules-as-separate-packages.md) |
 | İlk UI web mi, mobil mi? | Önce responsive web; mobil uygulama Faz 3'te | [ADR-0008](docs/adr/0008-use-python-django-and-react.md) |
 
 Yeni sorular ortaya çıktıkça yeni ADR önerisiyle tartışılmalıdır.

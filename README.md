@@ -25,6 +25,18 @@ LibreUniversity bu döngüyü kırmak ister:
 - Toplulukla geliştirilen şeffaf karar süreçleri.
 - KVKK, güvenlik, erişilebilirlik ve kamu yararı odağı.
 
+## Bu Repo (docs)
+
+Bu repo projenin vizyon, gereksinim, mimari, veri modeli, ADR ve ana yol haritası belgelerinin tek kaynağıdır. Organizasyon genelindeki etiket seti de burada tutulur ([org-labels.yml](org-labels.yml)).
+
+| Faz | Bu repoda yapılacaklar |
+| --- | --- |
+| Faz 0 | Lisans kararı, ADR-0004/0005/0006/0008/0009/0010'un kabulü, katkıcı karşılama belgeleri, sözlük |
+| Faz 1 | API sözleşme ilkeleri, yetki modeli ve audit olay kataloğu belgeleri |
+| Faz 2 | Ders kayıt, danışman onayı ve not süreçlerinin ayrıntılı analizleri |
+| Faz 3 | LMS ve mobil kullanıcı kılavuzları |
+| Faz 4+ | Kurumsal modüller (finans, EBYS, yurt, yemekhane) analizleri |
+
 ## Repolar
 
 Proje [`libre-university`](https://github.com/libre-university) organizasyonunda katmanlara göre ayrılmış repolarda geliştirilir. Liste ve faz sorumlulukları için [Yol Haritası](ROADMAP.md) belgesine bakın.

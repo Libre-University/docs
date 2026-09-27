@@ -1,6 +1,6 @@
 # Yol Haritası
 
-Bu yol haritası, LibreUniversity'nin fikir aşamasından çalışan özgür yazılım ekosistemine dönüşmesi için önerilen fazları tanımlar. Proje `libre-university` GitHub organizasyonu altında katmanlara göre ayrılmış repolarda geliştirilir ([ADR-0009](docs/adr/0009-organize-repositories-by-layer.md)). Her reponun kendi `ROADMAP.md` dosyası bu fazlarla hizalıdır.
+Bu yol haritası, LibreUniversity'nin fikir aşamasından çalışan özgür yazılım ekosistemine dönüşmesi için önerilen fazları tanımlar. Proje `libre-university` GitHub organizasyonu altında katmanlara göre ayrılmış repolarda geliştirilir ([ADR-0009](docs/adr/0009-organize-repositories-by-layer.md)); iş modülleri ayrı `module-*` repolarında paket olarak geliştirilir ([ADR-0010](docs/adr/0010-develop-modules-as-separate-packages.md)). Her reponun kendi `ROADMAP.md` dosyası bu fazlarla hizalıdır.
 
 ## Repolar ve Faz Sorumlulukları
 
@@ -8,7 +8,9 @@ Bu yol haritası, LibreUniversity'nin fikir aşamasından çalışan özgür yaz
 | --- | --- | --- | --- | --- | --- |
 | `.github` | Profil, şablonlar | Etiket/süreç iyileştirme | | | |
 | `docs` | ADR, gereksinimler | API ve modül sözleşmeleri | Akademik süreç belgeleri | Kullanıcı kılavuzları | Kurumsal modül analizleri |
-| `platform-api` | İskelet, CI | Kimlik, yetki, audit, temel veri | OBS akışları | LMS, bildirim | ERP/finans modülleri |
+| `platform-api` | Çekirdek iskelet, modül yükleme, modül şablonu, CI | Kimlik, yetki, audit, bildirim, dosya, temel veri | Çekirdek arayüz iyileştirmeleri | Push bildirim, mobil API | KVKK süreçleri |
+| `module-obs` | Modül iskeleti, iş kuralı kabul kriterleri | Öğrenci ve müfredat modelleri | Ders açma, kayıt, danışman onayı, not | Transkript/belge | Staj, mezuniyet |
+| `module-lms` | Modül iskeleti, iş kuralı kabul kriterleri | — | Ders sayfası ve materyal temeli | Duyuru, ödev, Jitsi canlı ders | Online sınav, VOD |
 | `platform-web` | İskelet, CI | Giriş, yönetim paneli | OBS ekranları | LMS ekranları, self-servis | Kurumsal ekranlar |
 | `mobile` | — | — | Prototip | Mobil self-servis 1.0 | Dijital kampüs kartı |
 | `adapters` | `libre-ports` taslağı | OIDC, S3, SMTP | | Jitsi, push | Banka, e-Devlet, YÖKSİS |
@@ -16,15 +18,22 @@ Bu yol haritası, LibreUniversity'nin fikir aşamasından çalışan özgür yaz
 | `design-system` | İlkeler, tokenlar | Temel bileşenler | Form/tablo bileşenleri | Mobil uyarlama | |
 | `website` | Tanıtım sitesi | Doküman yayını | Demo ortamı | | |
 
+## Gelecek Modül Repoları
+
+MODULES.md'deki diğer modüller için repolar fazı yaklaştıkça açılır ([ADR-0010](docs/adr/0010-develop-modules-as-separate-packages.md)):
+
+- **Faz 4:** `module-cms`, `module-erp`, `module-campus-life`, `module-library`, `module-helpdesk`, `module-bi`
+- **Faz 5:** `module-research`, `module-security-ops`, `module-quality`, `module-international`, `module-continuing-education`, `module-career`, `module-hospital`, `module-legal`, `module-gis`, `module-accessibility`, `module-print`, `module-events`, `module-technopark`, `module-real-estate`, `module-fleet`, `module-ohs`, `module-archive`
+
 ## Faz 0 Kapanış: Geliştirici Davetinden Önce
 
 Aşağıdakiler tamamlanmadan dış katkıcı çağrısı yapılmamalıdır:
 
 - [ ] Lisans kararının kesinleştirilmesi ([ADR-0002](docs/adr/0002-prefer-agpl-3-or-later-license.md)) ve tüm repolara `LICENSE` eklenmesi.
-- [ ] ADR-0004, 0005, 0006, 0008, 0009'un kabul edilmesi.
+- [ ] ADR-0004, 0005, 0006, 0008, 0009, 0010'un kabul edilmesi.
 - [ ] Organizasyon repolarının açılması ve her repoda `README.md` + `ROADMAP.md`.
 - [ ] `.github` reposunda varsayılan katkı rehberi, davranış kuralları, güvenlik politikası ve şablonlar.
-- [ ] Ortak etiket seti (`good first issue`, `help wanted`, `modül:*`, `tür:*`, `kvkk`, `güvenlik`).
+- [ ] Ortak etiket seti ([`org-labels.yml`](org-labels.yml): `good first issue`, `help wanted`, `type:*`, `area:*`, `module:*`, `phase:*`, `priority:*`, `kvkk`).
 - [ ] `platform-api` ve `platform-web` iskeletlerinin CI ile yeşil olması.
 - [ ] `deploy` ile tek komutla çalışan geliştirme ortamı.
 - [ ] Her repoda en az 5 adet `good first issue`.
