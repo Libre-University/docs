@@ -1,0 +1,37 @@
+# ADR-0002: Ana Lisans İçin AGPL-3.0-or-later Tercih Edilsin
+
+## Durum
+
+Önerildi
+
+## Bağlam
+
+LibreUniversity ağ üzerinden hizmet olarak sunulabilecek bir üniversite bilgi sistemi ekosistemidir. Böyle sistemlerde yazılım kullanıcıya doğrudan dağıtılmadan, web arayüzü üzerinden kullandırılabilir.
+
+Projenin özgür yazılım karakterini korumak için, projeyi alıp değiştirerek kapalı SaaS hizmetine dönüştürmeyi zorlaştıran bir lisans tercih edilmelidir.
+
+## Karar
+
+Projenin ana lisansı için varsayılan öneri **AGPL-3.0-or-later** olacaktır.
+
+Nihai lisans kararı topluluk yönetişimi ve mümkünse hukuki görüş sonrasında kesinleştirilecektir.
+
+## Sonuçlar
+
+- Ağ üzerinden hizmet olarak sunulan değişikliklerin de özgür kalması teşvik edilir.
+- Üniversiteler arası ortak geliştirme korunur.
+- Kapalı türev ve tedarikçi kilidi riski azaltılır.
+- Bazı ticari aktörler için katkı veya kullanım kararı daha fazla hukuki değerlendirme gerektirebilir.
+
+## Değerlendirilen Alternatifler
+
+- **GPL-3.0-or-later:** Güçlü copyleft sağlar, ancak ağ üzerinden kullanım senaryosunda AGPL kadar koruyucu değildir.
+- **EUPL:** Kamu kurumları için anlamlı olabilir; uyumluluk ayrıca incelenmelidir.
+- **MPL-2.0:** Daha esnektir, ancak kapalı türevleri önleme gücü daha sınırlıdır.
+- **Apache-2.0/MIT:** Katkı eşiğini düşürür, fakat kapalı türevleri engellemez.
+
+## İlgili Dokümanlar
+
+- [LICENSE_PROPOSAL.md](../../LICENSE_PROPOSAL.md)
+- [OPEN_SOURCE_POLICY.md](../../OPEN_SOURCE_POLICY.md)
+- [ARCHITECTURAL_PRINCIPLES.md](../../ARCHITECTURAL_PRINCIPLES.md)
