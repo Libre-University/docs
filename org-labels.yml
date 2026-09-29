@@ -15,7 +15,7 @@
 - { name: "type:discussion", color: "d4c5f9", description: "Karar öncesi tartışma, ADR adayı" }
 
 # Alan (katman)
-- { name: "area:backend", color: "1d76db", description: "platform-api / Django" }
+- { name: "area:backend", color: "1d76db", description: "platform-api / Go" }
 - { name: "area:frontend", color: "5319e7", description: "platform-web / React" }
 - { name: "area:mobile", color: "0e8a16", description: "React Native mobil uygulama" }
 - { name: "area:design-system", color: "f9d0c4", description: "Tasarım ilkeleri, tokenlar, UI bileşenleri" }

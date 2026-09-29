@@ -58,7 +58,7 @@ Amaç: Diğer modüllerin üzerine kurulacağı güvenilir çekirdeği oluşturm
 - Kimlik ve SSO.
 - Rol ve yetki yönetimi.
 - Kullanıcı, kurum, birim ve dönem temel verileri.
-- API Gateway veya servis giriş katmanı.
+- Ters vekil sunucu ile servis giriş katmanı (TLS, hız sınırlama).
 - Audit log.
 - Bildirim altyapısı.
 - Temel yönetim paneli.

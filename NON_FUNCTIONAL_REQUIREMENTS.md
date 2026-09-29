@@ -22,14 +22,14 @@ Bu doküman LibreUniversity sisteminin kalite, güvenlik, performans, işletim v
 
 ## NFR-02 Ölçeklenebilirlik
 
-- **NFR-02.01:** Web, API, LMS, OBS, bildirim, ödeme ve medya işleme servisleri yatay ölçeklenebilir tasarlanmalıdır.
+- **NFR-02.01:** Uygulama durumsuz (stateless) tasarlanmalı; web, API ve arka plan işçileri birden fazla örnek olarak yatay ölçeklenebilmelidir. Tek uygulama olarak dağıtım ([ADR-0004](docs/adr/0004-start-with-modular-monolith-for-mvp.md), [ADR-0011](docs/adr/0011-use-go-for-backend.md)) bu gereksinimi ortadan kaldırmaz.
 - **NFR-02.02:** Dosya, video ve ders kayıtları nesne depolama üzerinde tutulmalı; uygulama sunucularına bağlı kalmamalıdır.
 - **NFR-02.03:** Yoğun toplu işler, VOD dönüştürme, bildirim gönderimi ve entegrasyon senkronizasyonları asenkron kuyruklarla yürütülmelidir.
 - **NFR-02.04:** Birim siteleri çok kiracılı mimaride birbirinden izole olmalı; bir kiracının yoğunluğu diğer kiracıları etkilememelidir.
 
 ## NFR-03 Kullanılabilirlik ve Süreklilik
 
-- **NFR-03.01:** OBS, LMS, SSO, API Gateway, ödeme ve kampüs kartı servisleri yüksek erişilebilirlik mimarisiyle çalışmalıdır.
+- **NFR-03.01:** Uygulama, kimlik sağlayıcı (SSO), veritabanı, nesne depolama ve ters vekil sunucu yüksek erişilebilirlik mimarisiyle çalışabilmelidir; ödeme ve kampüs kartı gibi kritik modüller bu altyapıya dahildir.
 - **NFR-03.02:** Akademik dönem içindeki kritik servisler için aylık kullanılabilirlik hedefi en az %99,9 olmalıdır.
 - **NFR-03.03:** Planlı bakım pencereleri önceden duyurulmalı ve kritik akademik takvim dönemlerinde bakım yapılmamalıdır.
 - **NFR-03.04:** Tek bir uygulama düğümü veya veritabanı replikasının arızası sistemin tamamını durdurmamalıdır.
@@ -40,7 +40,7 @@ Bu doküman LibreUniversity sisteminin kalite, güvenlik, performans, işletim v
 - **NFR-04.01:** Tüm kullanıcı erişimleri merkezi SSO ve MFA destekli kimlik doğrulama üzerinden yapılmalıdır.
 - **NFR-04.02:** Yetkilendirme rol, birim, görev, veri kapsamı ve işlem türüne göre ayrıntılı şekilde uygulanmalıdır.
 - **NFR-04.03:** Hassas işlemler için denetim izi tutulmalı; not, ödeme, sağlık, disiplin, hukuk ve kişisel veri erişimleri ayrıca izlenmelidir.
-- **NFR-04.04:** Tüm ağ trafiği TLS ile şifrelenmeli; servisler arası iletişimde güvenli kimlik doğrulama kullanılmalıdır.
+- **NFR-04.04:** Tüm ağ trafiği TLS ile şifrelenmeli; uygulamanın kimlik sağlayıcı, veritabanı, nesne depolama ve dış sistem adapterleriyle iletişiminde güvenli kimlik doğrulama kullanılmalıdır.
 - **NFR-04.05:** Parola, token, API anahtarı, sertifika ve entegrasyon sırları merkezi secret yönetimiyle saklanmalıdır.
 - **NFR-04.06:** Dosya yükleme alanlarında zararlı içerik taraması, dosya tipi kontrolü ve boyut sınırı uygulanmalıdır.
 - **NFR-04.07:** Web uygulamaları OWASP Top 10 risklerine karşı güvenli geliştirme ve test süreçlerinden geçirilmelidir.
@@ -72,7 +72,7 @@ Bu doküman LibreUniversity sisteminin kalite, güvenlik, performans, işletim v
 ## NFR-08 Entegrasyon ve Birlikte Çalışabilirlik
 
 - **NFR-08.01:** Modüller arası veri alışverişi dokümante edilmiş API sözleşmeleriyle yapılmalıdır.
-- **NFR-08.02:** API Gateway hız sınırlama, kimlik doğrulama, yetkilendirme, loglama ve versiyonlama desteklemelidir.
+- **NFR-08.02:** API giriş katmanı (ters vekil sunucu ve uygulama) hız sınırlama, kimlik doğrulama, yetkilendirme, loglama ve API versiyonlama desteklemelidir; ayrı bir API Gateway bileşeni MVP kapsamında değildir.
 - **NFR-08.03:** Dış sistem entegrasyonlarında tekrar deneme, idempotency, hata kuyruğu ve mutabakat raporu bulunmalıdır.
 - **NFR-08.04:** Sistem dışa veri aktarımında CSV, XLSX, JSON, PDF ve gerektiğinde XML formatlarını desteklemelidir.
 - **NFR-08.05:** Entegrasyonlar ortam bazlı ayrılmalı; test ve canlı kurum servisleri birbirine karışmamalıdır.
@@ -94,7 +94,7 @@ Bu doküman LibreUniversity sisteminin kalite, güvenlik, performans, işletim v
 
 ## NFR-11 Gözlemlenebilirlik ve Operasyon
 
-- **NFR-11.01:** Her servis yapılandırılmış log, metrik ve dağıtık izleme verisi üretmelidir.
+- **NFR-11.01:** Uygulama ve her modül yapılandırılmış log, metrik ve izleme verisi üretmelidir.
 - **NFR-11.02:** Kritik iş akışları için teknik metriklerin yanında iş metrikleri de izlenmelidir; örneğin ders kayıt başarı oranı, ödeme mutabakatı ve canlı ders hata oranı.
 - **NFR-11.03:** Alarm kuralları öncelik, sorumlu ekip, eskalasyon ve müdahale süresiyle tanımlanmalıdır.
 - **NFR-11.04:** Sürüm geçişleri geriye dönüş planı, değişiklik kaydı ve minimum kesinti prensibiyle yapılmalıdır.

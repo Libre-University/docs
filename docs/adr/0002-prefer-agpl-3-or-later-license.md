@@ -4,6 +4,8 @@
 
 Kabul edildi. Yazılım repoları AGPL-3.0-or-later, belge repoları (`docs`, `.github`) CC BY-SA 4.0 ile lisanslanır.
 
+Karar verenler: Kurucu. Tartışma: [docs#1](https://github.com/Libre-University/docs/issues/1). Karar 27 Eylül 2026'da tüm repolara `LICENSE` eklenerek kesinleşti.
+
 ## Bağlam
 
 LibreUniversity ağ üzerinden hizmet olarak sunulabilecek bir üniversite bilgi sistemi ekosistemidir. Böyle sistemlerde yazılım kullanıcıya doğrudan dağıtılmadan, web arayüzü üzerinden kullandırılabilir.
@@ -12,9 +14,9 @@ Projenin özgür yazılım karakterini korumak için, projeyi alıp değiştirer
 
 ## Karar
 
-Projenin ana lisansı için varsayılan öneri **AGPL-3.0-or-later** olacaktır.
+Projenin ana lisansı **AGPL-3.0-or-later** olacaktır; belge repoları CC BY-SA 4.0 kullanır.
 
-Nihai lisans kararı topluluk yönetişimi ve mümkünse hukuki görüş sonrasında kesinleştirilecektir.
+Katkıcı lisans sözleşmesi (CLA) veya DCO gerekip gerekmediği ayrı bir ADR ile ele alınır ([docs#13](https://github.com/Libre-University/docs/issues/13)).
 
 ## Sonuçlar
 
