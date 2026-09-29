@@ -10,6 +10,8 @@ Bu doküman LibreUniversity MVP kapsamındaki temel veri varlıklarını, ilişk
 - Dış sistem kimlikleri çekirdek modele gömülmeden ayrı alanlarda tutulmalıdır.
 - Kişisel veriler asgari düzeyde tutulmalı ve hassas veri alanları sınıflandırılmalıdır.
 - İlk MVP modeli genişlemeye açık, fakat gereksiz ayrıntıdan arındırılmış olmalıdır.
+- Kişi (`User`) ile öğrencilik kaydı (`StudentRecord`) ayrıdır; bir kişinin birden fazla öğrencilik kaydı olabilir.
+- Sonradan değiştirilmesi en pahalı ilişkiler (kişi-öğrencilik, kayıt-dönem, not-politika) MVP ekranları tek durumu varsaysa bile şemada baştan doğru kurulur.
 
 ## Ana Varlıklar
 
@@ -20,6 +22,7 @@ Bu doküman LibreUniversity MVP kapsamındaki temel veri varlıklarını, ilişk
 | `User` | Sisteme giriş yapabilen gerçek kişi veya teknik hesap. | Kimlik Çekirdeği |
 | `Role` | Öğrenci, akademisyen, danışman, idari kullanıcı, sistem yöneticisi gibi rol tanımı. | Kimlik Çekirdeği |
 | `Permission` | Belirli bir işlemi yapma yetkisi. | Kimlik Çekirdeği |
+| `RolePermission` | Rolün sahip olduğu izinlerin bağlantı kaydı. | Kimlik Çekirdeği |
 | `UserRole` | Kullanıcının belirli kapsamda sahip olduğu rol. | Kimlik Çekirdeği |
 | `OrganizationUnit` | Üniversite, fakülte, enstitü, yüksekokul, bölüm, merkez gibi organizasyon birimi. | Akademik Çekirdek |
 
@@ -29,15 +32,20 @@ Bu doküman LibreUniversity MVP kapsamındaki temel veri varlıklarını, ilişk
 | --- | --- | --- |
 | `AcademicTerm` | Akademik yıl ve dönem bilgisi. | Akademik Çekirdek |
 | `Program` | Lisans, yüksek lisans, doktora veya sertifika programı. | Akademik Çekirdek |
-| `Student` | Öğrencinin akademik kimliği ve program ilişkisi. | OBS |
+| `StudentRecord` | Bir kişinin belirli bir programdaki öğrencilik kaydı (öğrenci numarası, müfredat, durum). | OBS |
+| `AdvisorAssignment` | Öğrencilik kaydına atanmış danışman ve geçerlilik aralığı. | OBS |
 | `Instructor` | Akademisyenin öğretim elemanı kimliği. | Akademik Çekirdek |
 | `Course` | Ders katalog kaydı. | Akademik Çekirdek |
 | `Curriculum` | Bir programın müfredat tanımı. | OBS |
 | `CurriculumCourse` | Müfredat içindeki ders ve dönem ilişkisi. | OBS |
 | `CourseSection` | Belirli dönemde açılan ders şubesi. | OBS |
-| `Enrollment` | Öğrencinin belirli bir şubeye kayıt durumu. | OBS |
+| `SectionMeeting` | Şubenin haftalık ders saati ve derslik bilgisi; çakışma kontrolünün temeli. | OBS |
+| `TermRegistration` | Öğrencinin bir dönem için hazırladığı ders listesi ve danışman onay durumu. | OBS |
+| `Enrollment` | Dönemlik kayıt içindeki tek bir şube satırı. | OBS |
 | `GradeItem` | Ara sınav, final, ödev gibi değerlendirme kalemi. | OBS |
-| `Grade` | Öğrencinin değerlendirme kalemi veya ders sonucu notu. | OBS |
+| `Grade` | Öğrencinin bir değerlendirme kalemindeki puanı. | OBS |
+| `GradingPolicy` | Sürümlenen değerlendirme politikası: harf notu tablosu, ağırlıklar, geçme koşulları. | OBS |
+| `CourseResult` | Kayıt bazında hesaplanan ders sonu notu, harf notu ve başarı durumu. | OBS |
 
 ### LMS Çekirdeği
 
@@ -85,6 +93,12 @@ erDiagram
         string description
     }
 
+    ROLE_PERMISSION {
+        uuid id PK
+        uuid role_id FK
+        uuid permission_id FK
+    }
+
     USER_ROLE {
         uuid id PK
         uuid user_id FK
@@ -122,13 +136,26 @@ erDiagram
         string status
     }
 
-    STUDENT {
+    STUDENT_RECORD {
         uuid id PK
         uuid user_id FK
         uuid program_id FK
+        uuid curriculum_id FK
+        uuid primary_record_id FK
         string student_number
+        string record_type
         string status
         date admission_date
+        date ended_on
+        string end_reason
+    }
+
+    ADVISOR_ASSIGNMENT {
+        uuid id PK
+        uuid student_record_id FK
+        uuid instructor_id FK
+        date valid_from
+        date valid_until
     }
 
     INSTRUCTOR {
@@ -172,18 +199,53 @@ erDiagram
         uuid course_id FK
         uuid academic_term_id FK
         uuid instructor_id FK
+        uuid grading_policy_id FK
         string section_code
         int capacity
         string status
     }
 
+    SECTION_MEETING {
+        uuid id PK
+        uuid course_section_id FK
+        int weekday
+        time starts_at
+        time ends_at
+        string room
+    }
+
+    TERM_REGISTRATION {
+        uuid id PK
+        uuid student_record_id FK
+        uuid academic_term_id FK
+        string status
+        string advisor_note
+        datetime submitted_at
+        datetime approved_at
+    }
+
     ENROLLMENT {
         uuid id PK
-        uuid student_id FK
+        uuid term_registration_id FK
+        uuid student_record_id FK
         uuid course_section_id FK
         string status
         datetime requested_at
         datetime approved_at
+    }
+
+    GRADING_POLICY {
+        uuid id PK
+        uuid organization_unit_id FK
+        string code
+        int version
+        string grading_mode
+        json letter_grade_table
+        json item_weights
+        decimal pass_threshold
+        decimal final_min_score
+        date effective_from
+        string status
     }
 
     GRADE_ITEM {
@@ -200,7 +262,17 @@ erDiagram
         uuid enrollment_id FK
         uuid grade_item_id FK
         decimal score
+        string status
+    }
+
+    COURSE_RESULT {
+        uuid id PK
+        uuid enrollment_id FK
+        uuid grading_policy_id FK
+        decimal final_score
         string letter_grade
+        boolean passed
+        datetime finalized_at
         string status
     }
 
@@ -233,7 +305,7 @@ erDiagram
     ASSIGNMENT_SUBMISSION {
         uuid id PK
         uuid assignment_id FK
-        uuid student_id FK
+        uuid student_record_id FK
         uuid stored_file_id FK
         datetime submitted_at
         string status
@@ -267,6 +339,9 @@ erDiagram
         uuid entity_id
         datetime occurred_at
         string ip_address
+        string reason
+        string before_summary
+        string after_summary
     }
 
     NOTIFICATION {
@@ -288,18 +363,22 @@ erDiagram
 
     USER ||--o{ USER_ROLE : has
     ROLE ||--o{ USER_ROLE : assigned
-    ROLE }o--o{ PERMISSION : grants
+    ROLE ||--o{ ROLE_PERMISSION : grants
+    PERMISSION ||--o{ ROLE_PERMISSION : granted_via
     ORGANIZATION_UNIT ||--o{ USER_ROLE : scopes
     ORGANIZATION_UNIT ||--o{ ORGANIZATION_UNIT : contains
     ORGANIZATION_UNIT ||--o{ PROGRAM : owns
     ORGANIZATION_UNIT ||--o{ COURSE : offers
     ORGANIZATION_UNIT ||--o{ INSTRUCTOR : employs
 
-    USER ||--o| STUDENT : maps_to
+    USER ||--o{ STUDENT_RECORD : holds
     USER ||--o| INSTRUCTOR : maps_to
     USER ||--o{ EXTERNAL_IDENTITY : links
 
-    PROGRAM ||--o{ STUDENT : enrolls
+    PROGRAM ||--o{ STUDENT_RECORD : enrolls
+    CURRICULUM ||--o{ STUDENT_RECORD : governs
+    STUDENT_RECORD ||--o{ ADVISOR_ASSIGNMENT : advised_by
+    INSTRUCTOR ||--o{ ADVISOR_ASSIGNMENT : advises
     PROGRAM ||--o{ CURRICULUM : defines
     CURRICULUM ||--o{ CURRICULUM_COURSE : includes
     COURSE ||--o{ CURRICULUM_COURSE : appears_in
@@ -307,12 +386,20 @@ erDiagram
     COURSE ||--o{ COURSE_SECTION : opens
     ACADEMIC_TERM ||--o{ COURSE_SECTION : schedules
     INSTRUCTOR ||--o{ COURSE_SECTION : teaches
-    STUDENT ||--o{ ENROLLMENT : requests
+    COURSE_SECTION ||--o{ SECTION_MEETING : meets
+    STUDENT_RECORD ||--o{ TERM_REGISTRATION : prepares
+    ACADEMIC_TERM ||--o{ TERM_REGISTRATION : covers
+    TERM_REGISTRATION ||--o{ ENROLLMENT : lists
+    STUDENT_RECORD ||--o{ ENROLLMENT : requests
     COURSE_SECTION ||--o{ ENROLLMENT : receives
 
     COURSE_SECTION ||--o{ GRADE_ITEM : evaluates
     ENROLLMENT ||--o{ GRADE : receives
     GRADE_ITEM ||--o{ GRADE : records
+    ORGANIZATION_UNIT ||--o{ GRADING_POLICY : defines
+    GRADING_POLICY ||--o{ COURSE_SECTION : governs
+    ENROLLMENT ||--o| COURSE_RESULT : concludes
+    GRADING_POLICY ||--o{ COURSE_RESULT : computed_with
 
     COURSE_SECTION ||--o| COURSE_PAGE : has
     COURSE_PAGE ||--o{ LEARNING_MATERIAL : contains
@@ -321,7 +408,7 @@ erDiagram
     STORED_FILE ||--o{ LEARNING_MATERIAL : backs
     STORED_FILE ||--o{ ASSIGNMENT_SUBMISSION : backs
     ASSIGNMENT ||--o{ ASSIGNMENT_SUBMISSION : receives
-    STUDENT ||--o{ ASSIGNMENT_SUBMISSION : submits
+    STUDENT_RECORD ||--o{ ASSIGNMENT_SUBMISSION : submits
     INSTRUCTOR ||--o{ LIVE_SESSION : moderates
 
     USER ||--o{ AUDIT_LOG : performs
@@ -349,9 +436,9 @@ Notlar:
 - Parola doğrudan bu modelde tutulmamalıdır; SSO/kimlik sağlayıcıya bırakılmalıdır.
 - Teknik kullanıcılar için ayrıca hesap tipi eklenebilir.
 
-### `Role`, `Permission`, `UserRole`
+### `Role`, `Permission`, `RolePermission`, `UserRole`
 
-Yetkilendirme modelinin çekirdeğidir. Rol atamaları bir organizasyon birimiyle sınırlandırılabilir.
+Yetkilendirme modelinin çekirdeğidir. Rol ile izin ilişkisi `RolePermission` bağlantı kaydıyla tutulur; kullanıcıya rol ataması `UserRole` ile yapılır ve bir organizasyon birimiyle sınırlandırılabilir.
 
 Örnekler:
 
@@ -410,15 +497,34 @@ Program ve müfredat yapısını temsil eder.
 - Öğrencinin hangi müfredat sürümüne tabi olduğu ayrıca takip edilebilir.
 - MVP'de ön koşul modeli basitleştirilebilir; sonraki fazda ayrı `CoursePrerequisite` varlığı eklenebilir.
 
-### `Student`
+### `StudentRecord`
 
-Kullanıcının öğrenci kimliğini temsil eder.
+Bir kişinin belirli bir programdaki öğrencilik kaydını temsil eder. Kişi (`User`) ile öğrencilik kaydı bilinçli olarak ayrılmıştır: aynı kişi lisansı bitirip yüksek lisansa başlayabilir, çift anadal veya yandal yapabilir, kaydı silinip yeniden kayıt olabilir. Bu durumların her biri ayrı bir `StudentRecord` kaydıdır ve her kaydın kendi öğrenci numarası vardır.
+
+Temel alanlar:
+
+- `user_id`, `program_id`, `curriculum_id`
+- `student_number`
+- `record_type`: `major`, `double_major`, `minor`
+- `primary_record_id`: çift anadal ve yandal kayıtlarında bağlı olduğu anadal kaydı (isteğe bağlı)
+- `status`, `admission_date`, `ended_on`, `end_reason`
 
 İlkeler:
 
-- Her öğrenci bir `User` kaydına bağlıdır.
-- MVP'de öğrenci tek aktif programa bağlı kabul edilebilir.
-- Çift anadal, yandal ve yatay geçiş sonraki fazda genişletilebilir.
+- `Enrollment`, `TermRegistration`, `CourseResult` ve `AssignmentSubmission` kişiye değil öğrencilik kaydına bağlanır; transkript kayıt bazında üretilir.
+- MVP ekranları tek aktif öğrencilik kaydı varsayabilir; şema bu varsayıma kilitlenmez.
+- Öğrencinin tabi olduğu müfredat sürümü `curriculum_id` ile kayıt üzerinde tutulur.
+- Saklama süreleri öğrencilik kaydı bazında yönetilebilir (KVKK).
+
+### `AdvisorAssignment`
+
+Öğrencilik kaydına atanmış danışmanı ve geçerlilik aralığını tutar.
+
+İlkeler:
+
+- Danışmanlık yalnızca birim kapsamlı bir rol olarak modellenmez; aksi halde bölümdeki her danışman her öğrencinin kaydını onaylayabilir.
+- Dönemlik kayıt onayı yalnızca o tarihte geçerli atamanın danışmanı tarafından yapılabilir.
+- Aynı anda birden fazla geçerli atama olamaz.
 
 ### `Instructor`
 
@@ -428,7 +534,7 @@ Kullanıcının akademisyen/öğretim elemanı kimliğini temsil eder.
 
 - Her akademisyen bir `User` kaydına bağlıdır.
 - Akademisyen bir veya daha fazla ders şubesinde eğitmen olabilir.
-- Danışmanlık rolü `UserRole` veya ileride ayrı `AdvisorAssignment` ile modellenebilir.
+- Danışmanlık `AdvisorAssignment` ile öğrencilik kaydı bazında atanır.
 
 ### `Course` ve `CourseSection`
 
@@ -442,30 +548,58 @@ Kullanıcının akademisyen/öğretim elemanı kimliğini temsil eder.
 İlkeler:
 
 - Öğrenci doğrudan `Course` kaydına değil, `CourseSection` kaydına kayıt olur.
-- Kapasite, dönem, akademisyen ve durum şube üzerinde tutulur.
+- Kapasite, dönem, akademisyen, değerlendirme politikası ve durum şube üzerinde tutulur.
+- MVP'de her şubenin tek sorumlu eğitmeni vardır; ortak yürütülen dersler için `SectionInstructor` MVP sonrası adaydır.
+
+### `SectionMeeting`
+
+Şubenin haftalık ders saatlerini tutar: `weekday`, `starts_at`, `ends_at`, `room`. Bir şubenin birden fazla oturumu olabilir.
+
+İlkeler:
+
+- Ders kayıt sırasındaki saat çakışması kontrolü bu kayıtlar üzerinden yapılır.
+- MVP'de derslik serbest metindir; mekan yönetimi ayrı modülde ele alınır.
+
+### `TermRegistration`
+
+Öğrencinin bir dönem için hazırladığı ders listesinin başlığıdır. Türkiye pratiğinde öğrenci listeyi bütün olarak gönderir, danışman bütün olarak onaylar ya da notla geri gönderir.
+
+Durumlar:
+
+- `draft`
+- `submitted`
+- `returned`
+- `approved`
+
+İlkeler:
+
+- Dönemlik AKTS üst ve alt sınırı gibi toplam kuralları bu başlıkta kontrol edilir.
+- `advisor_note` geri gönderme gerekçesini taşır.
+- Onay sonrası ekleme ve çıkarma ayrı bir ders ekle/bırak dönemi kuralına tabidir; MVP'de listenin yeniden `submitted` durumuna alınması yeterlidir.
 
 ### `Enrollment`
 
 Öğrencinin ders şubesine kayıt durumunu temsil eder.
 
+`Enrollment` bir `TermRegistration` içindeki tek şube satırıdır; onay akışı satır bazında değil dönemlik kayıt bazında yürür.
+
 Örnek durumlar:
 
-- `draft`
-- `pending_advisor_approval`
-- `approved`
-- `rejected`
-- `withdrawn`
-- `dropped`
+- `listed`: dönemlik kayıt listesinde, henüz onaylanmamış
+- `approved`: dönemlik kayıt onaylandı
+- `rejected`: danışman veya kural tarafından reddedildi
+- `withdrawn`: öğrenci çekildi
+- `dropped`: idari olarak silindi
 
 İlkeler:
 
-- Aynı öğrenci aynı dönemde aynı dersin birden fazla aktif şubesine kayıt olamamalıdır.
-- Danışman onayı gereken programlarda kayıt önce bekleyen duruma alınmalıdır.
+- Aynı öğrencilik kaydı aynı dönemde aynı dersin birden fazla aktif şubesine kayıt olamamalıdır.
+- Kontenjan, ön koşul ve saat çakışması satır eklenirken kontrol edilir; AKTS toplamı dönemlik kayıt gönderilirken kontrol edilir.
 - Her durum değişikliği audit log'a yazılmalıdır.
 
-### `GradeItem` ve `Grade`
+### `GradeItem`, `Grade`, `GradingPolicy` ve `CourseResult`
 
-Değerlendirme kalemleri ve öğrenci notlarını temsil eder.
+`GradeItem` şubenin değerlendirme kalemlerini, `Grade` öğrencinin tek bir kalemdeki puanını, `CourseResult` ise kayıt bazında hesaplanan ders sonu notunu temsil eder. Harf notu ve başarı durumu kalem notu üzerinde değil, `CourseResult` üzerinde tutulur.
 
 Örnek `GradeItem` tipleri:
 
@@ -475,15 +609,31 @@ Değerlendirme kalemleri ve öğrenci notlarını temsil eder.
 - `project`
 - `makeup`
 
+`GradingPolicy`, her üniversitenin ve fakültenin farklı yönetmeliğini kod değiştirmeden uygulamak için sürümlenen parametrik politikadır:
+
+- `organization_unit_id`: politikanın tanımlandığı birim (üniversite, fakülte veya enstitü)
+- `code`, `version`, `effective_from`, `status`
+- `grading_mode`: `absolute` veya `relative`
+- `letter_grade_table`: harf notu aralıkları ve katsayıları
+- `item_weights`: kalem tiplerinin varsayılan ağırlıkları
+- `pass_threshold`, `final_min_score`: geçme notu ve final alt sınırı
+
 İlkeler:
 
+- Her şube bir `GradingPolicy` sürümüne bağlanır; kural değişse bile önceki dönemlerin sonuçları eski sürümle açıklanabilir kalır.
+- `CourseResult.grading_policy_id` sonucun hangi politika sürümüyle hesaplandığını saklar; "hesaplama kuralı izlenebilir olmalı" ilkesi bu alanla sağlanır.
+- Bağıl değerlendirme algoritması açık ve belgeli olmalıdır; MVP'de mutlak değerlendirme yeterlidir, bağıl mod sonraki fazda uygulanır.
+- Kural motoru veya DSL MVP kapsamı dışıdır; parametrik politika yeterlidir.
 - Not girişi yalnızca yetkili akademisyen veya yetkili idari rol tarafından yapılmalıdır.
 - Not değişiklikleri gerekçe ve audit log gerektirmelidir.
-- MVP'de harf notu hesaplama basit kural setiyle yapılabilir.
+- Kalem notu değiştiğinde ders sonucu yeniden hesaplanır; önceki sonuç audit log'a yazılır.
+- Her kayıt için en fazla bir aktif `CourseResult` bulunur.
 
 ### LMS Varlıkları
 
 `CoursePage`, `LearningMaterial`, `Assignment`, `AssignmentSubmission` ve `LiveSession` LMS çekirdeğini oluşturur.
+
+> [ADR-0013](docs/adr/0013-integrate-existing-lms-instead-of-building.md) kabul edilirse bu varlıklar MVP'de LibreUniversity içinde tutulmaz; yerlerini LMS entegrasyon kayıtları (şube-ders eşleştirmesi, senkronizasyon durumu, not aktarım kaydı) alır ve bu bölüm o kararla birlikte güncellenir.
 
 İlkeler:
 
@@ -503,7 +653,8 @@ Minimum kayıt alanları:
 - Etkilenen varlık kimliği.
 - Zaman.
 - IP/adres veya istemci bilgisi.
-- Önceki ve sonraki değer özeti.
+- Önceki ve sonraki değer özeti (`before_summary`, `after_summary`).
+- Gerekçe (`reason`); not değişikliği, kayıt iptali ve yetki değişikliği gibi işlemlerde zorunludur.
 
 MVP'de özellikle şu işlemler loglanmalıdır:
 
@@ -545,16 +696,18 @@ MVP'de yalnızca `in_app` ve `email` ile başlanabilir.
 ### Ders Kayıt
 
 - Öğrenci yalnızca aktif kayıt döneminde ders seçebilmelidir.
-- Öğrenci aynı dönemde aynı dersin birden fazla aktif şubesine kayıt olamamalıdır.
+- Öğrencilik kaydı aynı dönemde aynı dersin birden fazla aktif şubesine kayıt olamamalıdır.
+- Şube listeye eklenirken kontenjan, ön koşul ve `SectionMeeting` üzerinden saat çakışması kontrol edilir; çakışan şube eklenemez.
 - Kontenjan doluysa kayıt bekleme listesine alınabilir veya reddedilebilir; MVP'de reddetme yeterlidir.
-- Danışman onayı gerekiyorsa kayıt `pending_advisor_approval` durumuna geçmelidir.
+- Dönemlik kayıt gönderilirken müfredat ve politika kurallarına göre AKTS toplam sınırı kontrol edilir.
+- Gönderilen dönemlik kayıt yalnızca geçerli `AdvisorAssignment` sahibi danışman tarafından onaylanabilir veya notla geri gönderilebilir.
 - Onaylanan kayıt silinirse veya çekilirse audit log'a gerekçesiyle yazılmalıdır.
 
 ### Not Girişi
 
 - Not yalnızca ilgili şubenin akademisyeni veya yetkili idari kullanıcı tarafından girilebilir.
 - Dönem kapandıktan sonra not değişikliği ek yetki ve gerekçe gerektirmelidir.
-- Harf notu veya başarı durumu hesaplandıktan sonra hesaplama kuralı izlenebilir olmalıdır.
+- Harf notu ve başarı durumu `CourseResult` kaydına yazılmalı; kullanılan `GradingPolicy` sürümü sonuç üzerinde saklanmalıdır.
 - Not değişikliği öğrencinin bildirim merkezine düşmelidir.
 
 ### LMS
@@ -578,8 +731,10 @@ MVP'de yalnızca `in_app` ve `email` ile başlanabilir.
 | Rol ve yetki | Kimlik Çekirdeği | Organizasyon kapsamı desteklenir. |
 | Organizasyon birimi | Akademik Çekirdek | Fakülte/bölüm hiyerarşisi. |
 | Program/ders/dönem | Akademik Çekirdek | OBS ve LMS tarafından kullanılır. |
-| Ders kayıt | OBS | Akademik kayıt için kaynak sistemdir. |
-| Not | OBS | Kritik audit gerektirir. |
+| Öğrencilik kaydı ve danışman ataması | OBS | Kişi kaydı kimlik çekirdeğinde, öğrencilik OBS'de. |
+| Ders kayıt | OBS | Dönemlik kayıt ve satırları; akademik kayıt için kaynak sistemdir. |
+| Not ve ders sonucu | OBS | Kritik audit gerektirir; politika sürümüyle birlikte saklanır. |
+| Değerlendirme politikası | OBS | Birim bazlı, sürümlenir. |
 | Ders materyali | LMS | Dosya metadata ile ilişkilidir. |
 | Canlı ders | LMS | Jitsi adapter ile yürütülür. |
 | Dosya içeriği | Dosya Servisi | Nesne depolamada tutulur. |
@@ -599,7 +754,8 @@ MVP'de yalnızca `in_app` ve `email` ile başlanabilir.
 ## MVP Sonrası Genişletme Adayları
 
 - `CoursePrerequisite`
-- `AdvisorAssignment`
+- `SectionInstructor`
+- `Room` ve mekan yönetimi (`SectionMeeting.room` yerine)
 - `AttendanceSession`
 - `AttendanceRecord`
 - `Exam`
