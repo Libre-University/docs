@@ -52,6 +52,7 @@ Proje [`libre-university`](https://github.com/libre-university) organizasyonunda
 - [MVP UML Diyagramları](UML.md)
 - [MVP Veri Modeli](DATA_MODEL.md)
 - [Mimari Karar Kayıtları](docs/adr/)
+- [Sözlük](GLOSSARY.md)
 - [Topluluk](COMMUNITY.md)
 - [Katkı Rehberi](CONTRIBUTING.md)
 - [Yönetişim](GOVERNANCE.md)
