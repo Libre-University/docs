@@ -4,6 +4,10 @@
 
 Önerildi. Modüllerin repo yerleşimi [ADR-0010](0010-develop-modules-as-separate-packages.md) ile değiştirilmiştir.
 
+Karar verenler: Kurucu önerisi. Tartışma: [docs#2](https://github.com/Libre-University/docs/issues/2).
+
+Not (2026-09-29): Bu ADR ilk yazıldığında `platform-api` için Python/Django öngörüyordu; [ADR-0011](0011-use-go-for-backend.md) sonrasında tablo geriye dönük olarak Go ile güncellendi. Bu, ADR değişmezlik kuralıyla çelişir; bundan sonra bu tür değişiklikler yeni ADR ile yapılacaktır ([docs#12](https://github.com/Libre-University/docs/issues/12)).
+
 ## Bağlam
 
 Proje `libre-university` GitHub organizasyonu altında geliştirilecektir. Backend, web, mobil, kurulum, entegrasyon, tasarım ve topluluk sitesi farklı yetkinlikte katkıcılar gerektirir. Repo yapısı; katkıcının doğru yere kolayca ulaşmasını, sorumlulukların (CODEOWNERS) netleşmesini ve bağımsız sürümlemeyi desteklemelidir.

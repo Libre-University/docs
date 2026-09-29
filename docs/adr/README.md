@@ -31,4 +31,17 @@ Yeni dosya adı şu formatı izlemelidir:
 
 `0012-short-decision-title.md`
 
-Her ADR; durum, bağlam, karar, sonuçlar, alternatifler ve ilgili dokümanlar bölümlerini içermelidir.
+Her ADR şu bölümleri içermelidir:
+
+- **Durum** ve durumun hemen altında **Karar verenler** (bu aşamada "Kurucu önerisi" yeterlidir) ile **Tartışma** (ilgili issue veya PR bağlantısı).
+- Bağlam.
+- Karar.
+- Sonuçlar.
+- Değerlendirilen alternatifler.
+- İlgili dokümanlar.
+
+## Değişmezlik Kuralı
+
+Kabul edilmiş bir ADR'nin içeriği değiştirilmez. ADR'nin amacı karar anını kaydetmektir; yeni karar yeni bir ADR ile alınır ve eski ADR'nin yalnızca durum satırı güncellenir ("ADR-00XX ile değiştirildi"). Yazım hatası düzeltmeleri ve bağlantı onarımları bu kuralın dışındadır.
+
+"Önerildi" durumundaki bir ADR yorum süresi boyunca düzenlenebilir; ancak bağlamı veya kararı değiştiren düzenlemeler durum satırının altına tarihle not düşülmelidir.

@@ -68,4 +68,4 @@ Sürümler açık notlarla yayınlanmalıdır:
 
 ## Belgelendirme
 
-Her kritik teknik karar için kısa bir karar kaydı tutulmalıdır. İleride `docs/adr/` altında Architecture Decision Record yapısına geçilebilir.
+Her kritik teknik karar için [docs/adr/](docs/adr/) altında bir Architecture Decision Record tutulur. Format, durum anlamları ve değişmezlik kuralı [docs/adr/README.md](docs/adr/README.md) içinde tanımlıdır. Her ADR kararı kimin verdiğini ve hangi tartışmaya dayandığını belirtir.
