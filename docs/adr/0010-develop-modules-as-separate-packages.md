@@ -2,7 +2,7 @@
 
 ## Durum
 
-Önerildi. [ADR-0009](0009-organize-repositories-by-layer.md) kararının "modüller ayrı repoya bölünmez" kuralını değiştirir. Backend dili [ADR-0011](0011-use-go-for-backend.md) ile Go olarak güncellendiğinden modüller derleme zamanında birleştirilir.
+Önerildi. [ADR-0012](0012-develop-modules-inside-platform-api.md) kabul edilirse bu ADR "Değiştirildi" durumuna geçer. [ADR-0009](0009-organize-repositories-by-layer.md) kararının "modüller ayrı repoya bölünmez" kuralını değiştirir. Backend dili [ADR-0011](0011-use-go-for-backend.md) ile Go olarak güncellendiğinden modüller derleme zamanında birleştirilir.
 
 ## Bağlam
 

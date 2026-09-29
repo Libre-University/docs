@@ -24,11 +24,12 @@ Bu klasör LibreUniversity için alınan veya önerilen önemli mimari kararlar�
 | [0009](0009-organize-repositories-by-layer.md) | Repolar katmanlara göre ayrılsın | Önerildi (ADR-0010 ile kısmen değiştirildi) |
 | [0010](0010-develop-modules-as-separate-packages.md) | Modüller ayrı repolarda, tek uygulamaya derlenen paketler olsun | Önerildi |
 | [0011](0011-use-go-for-backend.md) | Backend Go ile geliştirilsin | Önerildi |
+| [0012](0012-develop-modules-inside-platform-api.md) | Modüller MVP boyunca `platform-api` içinde geliştirilsin | Önerildi (kabul edilirse ADR-0010'u değiştirir) |
 
 ## Yeni ADR Yazarken
 
 Yeni dosya adı şu formatı izlemelidir:
 
-`0012-short-decision-title.md`
+`0013-short-decision-title.md`
 
 Her ADR; durum, bağlam, karar, sonuçlar, alternatifler ve ilgili dokümanlar bölümlerini içermelidir.
